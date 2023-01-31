@@ -1,6 +1,24 @@
+import os
 from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from sqlalchemy.sql import func
 
-app = Flask(__name__)
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+app     = Flask(__name__)
+
+# Setup database connection
+app.config['SECRET_KEY'] = 'SomeKey'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db      = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+class default_values(db.Model):
+     id = db.Column(db.Integer, primary_key=True)
 
 # Settings
 resin_type = "Resin type x"
@@ -55,6 +73,10 @@ def index():
         return render_template("index.html", area=area, resin=resin, hardner=hardner, cost=cost)
     else:
         return render_template("index.html")
+    
+@app.route("/defaults", methods=['POST', 'GET'])
+def defaults():
+     return render_template('defaults.html')
 
 if __name__ == '__main__':
 	app.run(debug=True)

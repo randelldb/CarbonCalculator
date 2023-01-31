@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <form action="/" method="POST">
+            <div class="mb-6">
+                <label for="resin_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Resin type</label>
+                <input type="input" id="resin_type" name="resin_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="resin_weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Resin weight</label>
+                <input type="input" id="resin_weight" name="resin_weight" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="price_resin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price resin</label>
+                <input type="input" id="price_resin" name="price_resin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="hardner_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hardner type</label>
+                <input type="input" id="hardner_type" name="hardner_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="price_hardner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price Hardner</label>
+                <input type="input" id="price_hardner" name="price_hardner" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="hardner_weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hardner weight</label>
+                <input type="input" id="hardner_weight" name="hardner_weight" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="resin_ratio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Resin ratio</label>
+                <input type="input" id="resin_ratio" name="resin_ratio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="hardner_ratio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hardner ratio</label>
+                <input type="input" id="hardner_ratio" name="hardner_ratio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="extra_resin_percent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Extra resin/hardner</label>
+                <input type="input" id="extra_resin_percent" name="extra_resin_percent" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="carbon_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Carbon type</label>
+                <input type="input" id="carbon_type" name="carbon_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="default_carbon_size_width" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default carbon width</label>
+                <input type="input" id="default_carbon_size_width" name="default_carbon_size_width" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="default_carbon_size_height" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default carbon height</label>
+                <input type="input" id="default_carbon_size_height" name="default_carbon_size_height" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="default_carbon_weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default carbon weight</label>
+                <input type="input" id="default_carbon_weight" name="default_carbon_weight" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <div class="mb-6">
+                <label for="price_carbon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price carbon</label>
+                <input type="input" id="price_carbon" name="price_carbon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            </div>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Calculate</button>
+        </form>
+    </div>
+{% endblock %}

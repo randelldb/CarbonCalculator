@@ -8,7 +8,6 @@ hardner_weight = 500 #grams
 resin_ratio = 2
 hardner_ratio = 1
 extra_resin_percent = 20 #%
-
 carbon_type = "3k"
 default_carbon_size_width = 1 #m
 default_carbon_size_height = 1 #m
