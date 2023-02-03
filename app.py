@@ -70,6 +70,7 @@ def index():
 	
     if request.method == 'POST':
         print('x')
+        session_name = str(request.form['session_name']) 
         required_area = float(request.form['required_area'])
         amount_layers = int(request.form['amount_layers'])
 
@@ -80,7 +81,7 @@ def index():
         hardner = calculations["hardner"]
         cost    = calculations["cost"]
 
-        return render_template("index.html", area=area, resin=resin, hardner=hardner, cost=cost)
+        return render_template("index.html", session_name=session_name, area=area, resin=resin, hardner=hardner, cost=cost)
     else:
         return render_template("index.html")
     
