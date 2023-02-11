@@ -2,9 +2,9 @@ import os
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from carbonCalculation import CarbonCalculation
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-
 app     = Flask(__name__)
 
 # Setup database connection
@@ -32,54 +32,56 @@ class Default_values(db.Model):
     default_carbon_weight       = db.Column(db.Float)
     price_carbon                = db.Column(db.Float)
 
-# Settings
-# carbon_type = "3k"
-# default_carbon_size_width = 1 #m
-# default_carbon_size_height = 1 #m
-# default_carbon_area = default_carbon_size_width * default_carbon_size_height #m2
-# default_carbon_weight = 200 #grams
-# price_carbon = 43
 
-# Calculation
-def calc_amount(required_area, amount_layers):
-    get_default_setting = Default_values.query.first()
-    resin_weight = get_default_setting.resin_weight
-    price_resin = get_default_setting.price_resin
-    hardner_weight = get_default_setting.hardner_weight
-    default_carbon_area = get_default_setting.default_carbon_size_width * get_default_setting.default_carbon_size_height
-    default_carbon_weight = get_default_setting.default_carbon_weight
-    price_carbon = get_default_setting.price_carbon
+# # Calculation
+# def calc_amount(required_area, amount_layers):
+#     get_default_setting = Default_values.query.first()
+#     resin_weight = get_default_setting.resin_weight
+#     price_resin = get_default_setting.price_resin
+#     hardner_weight = get_default_setting.hardner_weight
+#     default_carbon_area = get_default_setting.default_carbon_size_width * get_default_setting.default_carbon_size_height
+#     default_carbon_weight = get_default_setting.default_carbon_weight
+#     price_carbon = get_default_setting.price_carbon
 
-    calc_req_area = (required_area / default_carbon_area) * amount_layers
-    calc_req_resin = (calc_req_area * default_carbon_weight) / 100 * 120
-    calc_req_hardner = (calc_req_resin / 2) / 100 * 120
-    est_cost = ((calc_req_resin / resin_weight) * price_resin) + ((calc_req_hardner / hardner_weight) * price_resin) + calc_req_area * price_carbon
+#     calc_req_area = (required_area / default_carbon_area) * amount_layers
+#     calc_req_resin = (calc_req_area * default_carbon_weight) / 100 * 120
+#     calc_req_hardner = (calc_req_resin / 2) / 100 * 120
+#     est_cost = ((calc_req_resin / resin_weight) * price_resin) + ((calc_req_hardner / hardner_weight) * price_resin) + calc_req_area * price_carbon
 
-    result = {
-        "area" : str(round(calc_req_area, 3)),
-        "resin" : str(round(calc_req_resin, 3)),
-        "hardner" : str(round(calc_req_hardner, 3)),
-        "cost" : str(round(est_cost, 2))
-    }
+#     result = {
+#         "area" : str(round(calc_req_area, 3)),
+#         "resin" : str(round(calc_req_resin, 3)),
+#         "hardner" : str(round(calc_req_hardner, 3)),
+#         "cost" : str(round(est_cost, 2))
+#     }
 
-    return result
+#     return result
 
 @app.route("/")
 @app.route("/index", methods=['POST', 'GET'])
 def index():
 	
     if request.method == 'POST':
-        print('x')
-        session_name = str(request.form['session_name']) 
-        required_area = float(request.form['required_area'])
-        amount_layers = int(request.form['amount_layers'])
+        new_calculation = CarbonCalculation(str(request.form['session_name']), float(request.form['required_area']), int(request.form['amount_layers']))
 
-        calculations = calc_amount(required_area, amount_layers)
-        
-        area    = calculations["area"]
-        resin   = calculations["resin"]
-        hardner = calculations["hardner"]
-        cost    = calculations["cost"]
+
+        # session_name = str(request.form['session_name']) 
+        # required_area = float(request.form['required_area'])
+        # amount_layers = int(request.form['amount_layers'])
+
+        # calculations = calc_amount(required_area, amount_layers)
+        session_name = new_calculation.session_name
+        x = new_calculation.calculate
+        print(session_name)
+        print(x())
+        area = 2
+        resin = 3
+        hardner = 1
+        cost = 2
+        # area = new_calculation.calculate["area"]
+        # resin = new_calculation.calculate["resin"]
+        # hardner = new_calculation.calculate["hardner"]
+        # cost = new_calculation.calculate["cost"]
 
         return render_template("index.html", session_name=session_name, area=area, resin=resin, hardner=hardner, cost=cost)
     else:
