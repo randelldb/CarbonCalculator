@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db      = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+
 class Default_values(db.Model):
     id                          = db.Column(db.Integer, primary_key=True)
     resin_type                  = db.Column(db.String(200), nullable = False)
@@ -33,55 +34,20 @@ class Default_values(db.Model):
     price_carbon                = db.Column(db.Float)
 
 
-# # Calculation
-# def calc_amount(required_area, amount_layers):
-#     get_default_setting = Default_values.query.first()
-#     resin_weight = get_default_setting.resin_weight
-#     price_resin = get_default_setting.price_resin
-#     hardner_weight = get_default_setting.hardner_weight
-#     default_carbon_area = get_default_setting.default_carbon_size_width * get_default_setting.default_carbon_size_height
-#     default_carbon_weight = get_default_setting.default_carbon_weight
-#     price_carbon = get_default_setting.price_carbon
-
-#     calc_req_area = (required_area / default_carbon_area) * amount_layers
-#     calc_req_resin = (calc_req_area * default_carbon_weight) / 100 * 120
-#     calc_req_hardner = (calc_req_resin / 2) / 100 * 120
-#     est_cost = ((calc_req_resin / resin_weight) * price_resin) + ((calc_req_hardner / hardner_weight) * price_resin) + calc_req_area * price_carbon
-
-#     result = {
-#         "area" : str(round(calc_req_area, 3)),
-#         "resin" : str(round(calc_req_resin, 3)),
-#         "hardner" : str(round(calc_req_hardner, 3)),
-#         "cost" : str(round(est_cost, 2))
-#     }
-
-#     return result
-
 @app.route("/")
 @app.route("/index", methods=['POST', 'GET'])
 def index():
 	
     if request.method == 'POST':
-        new_calculation = CarbonCalculation(str(request.form['session_name']), float(request.form['required_area']), int(request.form['amount_layers']))
+        new_calculation = CarbonCalculation(str(request.form['session_name']), float(request.form['required_area']), int(request.form['amount_layers']), Default_values)
 
-
-        # session_name = str(request.form['session_name']) 
-        # required_area = float(request.form['required_area'])
-        # amount_layers = int(request.form['amount_layers'])
-
-        # calculations = calc_amount(required_area, amount_layers)
+        get_result = new_calculation.calculate
         session_name = new_calculation.session_name
-        x = new_calculation.calculate
-        print(session_name)
-        print(x())
-        area = 2
-        resin = 3
-        hardner = 1
-        cost = 2
-        # area = new_calculation.calculate["area"]
-        # resin = new_calculation.calculate["resin"]
-        # hardner = new_calculation.calculate["hardner"]
-        # cost = new_calculation.calculate["cost"]
+        area = get_result()['area']
+        resin = get_result()['resin']
+        hardner = get_result()['hardner']
+        cost = get_result()['cost']
+
 
         return render_template("index.html", session_name=session_name, area=area, resin=resin, hardner=hardner, cost=cost)
     else:
@@ -97,7 +63,7 @@ def defaults():
     #     db.session.add(insert_data)
     #     db.session.commit()
 
-    get_default_values = Default_values.query.first()
+    get_default_values = dbModel.Default_values.query.first()
     if request.method == 'POST':
         get_default_values.resin_type = request.form['resin_type']
         get_default_values.resin_weight = request.form['resin_weight']

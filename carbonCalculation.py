@@ -1,13 +1,12 @@
-from app import *
-
 class CarbonCalculation:
-    def __init__(self, session_name, area, layers) -> None:
+    def __init__(self, session_name, area, layers, default_values) -> None:
         self.session_name = session_name
         self.area = area
         self.layers = layers
+        self.default_values = default_values
     
     def calculate(self):
-        get_default_setting     = Default_values.query.first()
+        get_default_setting     = self.default_values.query.first()
         resin_weight            = get_default_setting.resin_weight
         price_resin             = get_default_setting.price_resin
         hardner_weight          = get_default_setting.hardner_weight
@@ -24,7 +23,7 @@ class CarbonCalculation:
             "area" : str(round(calc_req_area, 3)),
             "resin" : str(round(calc_req_resin, 3)),
             "hardner" : str(round(calc_req_hardner, 3)),
-            "cost" : str(round(est_cost, 2))
+            "cost" : str(round(est_cost, 2)),
         }
 
         return result
