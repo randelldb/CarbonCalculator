@@ -1,6 +1,8 @@
 #custom
 notes.md
+.DS_store
 img/
+node_modules/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
