@@ -1,4 +1,4 @@
-from ..extensions import db
+from .extensions import db
 
 class DefaultValues(db.Model):
     id                          = db.Column(db.Integer, primary_key=True)
@@ -16,3 +16,10 @@ class DefaultValues(db.Model):
     default_carbon_size_height  = db.Column(db.Float)
     default_carbon_weight       = db.Column(db.Float)
     price_carbon                = db.Column(db.Float)
+
+
+class CarbonSession(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    session_name = db.Column(db.String(200), nullable=False)
+    area = db.Column(db.Integer, nullable=False)
+    layers = db.Column(db.Integer, nullable=False)

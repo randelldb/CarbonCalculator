@@ -3,8 +3,6 @@ import os
 from flask import Flask, render_template, request, redirect
 
 from .extensions import db, migrate
-from .models.carbon_calculation import CarbonCalculation
-from .models.default_values import DefaultValues
 from .routes import main
 
 

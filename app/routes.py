@@ -1,8 +1,8 @@
 from flask import render_template,request, Blueprint, redirect
 
 from .extensions import db
-from .models.carbon_calculation import CarbonCalculation
-from .models.default_values import DefaultValues
+from .views.index import CarbonCalculation
+from .models import DefaultValues
 
 main = Blueprint('main', __name__)
 
