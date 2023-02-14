@@ -11,7 +11,7 @@ main = Blueprint('main', __name__)
 def index():
 	
     if request.method == 'POST':
-        new_calculation = CarbonCalculation(str(request.form['session_name']), float(request.form['required_area']), int(request.form['amount_layers']), Default_values)
+        new_calculation = CarbonCalculation(str(request.form['session_name']), float(request.form['required_area']), int(request.form['amount_layers']), DefaultValues)
 
         get_result = new_calculation.calculate
         session_name = new_calculation.session_name
