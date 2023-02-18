@@ -19,7 +19,9 @@ class DefaultValues(db.Model):
 
 
 class CarbonSession(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    session_name = db.Column(db.String(200), nullable=False)
-    area = db.Column(db.Integer, nullable=False)
-    layers = db.Column(db.Integer, nullable=False)
+    id              = db.Column(db.Integer, primary_key=True)
+    session_name    = db.Column(db.String(200), nullable=False)
+    area            = db.Column(db.Integer, nullable=False)
+    layers          = db.Column(db.Integer, nullable=False)
+    amount_resin    = db.Column(db.Float)
+    amount_hardner  = db.Column(db.Float)

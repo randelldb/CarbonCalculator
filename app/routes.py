@@ -1,8 +1,8 @@
 from flask import render_template,request, Blueprint, redirect
 
 from .extensions import db
-from .views.index import CarbonCalculation
-from .models import DefaultValues
+from .views.index import CarbonCalculation, insert_session_data, get_session_data
+from .models import DefaultValues, CarbonSession
 
 main = Blueprint('main', __name__)
 
@@ -11,30 +11,28 @@ main = Blueprint('main', __name__)
 def index():
 	
     if request.method == 'POST':
+        print('posted')
         new_calculation = CarbonCalculation(str(request.form['session_name']), float(request.form['required_area']), int(request.form['amount_layers']), DefaultValues)
 
         get_result = new_calculation.calculate
-        session_name = new_calculation.session_name
+        session_name = get_result()['session_name']
+        layers = get_result()['layers']
         area = get_result()['area']
         resin = get_result()['resin']
         hardner = get_result()['hardner']
         cost = get_result()['cost']
+        
+        insert_session_data(session_name, area, layers, resin, hardner)
+        session_data = get_session_data()
 
 
-        return render_template("index.html", session_name=session_name, area=area, resin=resin, hardner=hardner, cost=cost)
+        return render_template("index.html", session_name=session_name, area=area, resin=resin, hardner=hardner, cost=cost, session_data = session_data)
     else:
-        return render_template("index.html")
+        session_data = get_session_data()
+        return render_template("index.html", session_data = session_data)
     
 @main.route("/defaults", methods=['POST', 'GET'])
 def defaults():
-    # def insert_dummy_data():
-    #     insert_data = Default_values(resin_type = "Some resin type", resin_weight = 1.5, 
-    #                             price_resin = 2.0, hardner_type = "Some hardner type", price_hardner = 6.0, hardner_weight = 0.5, 
-    #                             resin_ratio = 2, hardner_ratio = 1, extra_resin_percent = 20, carbon_type = "3K", default_carbon_size_width = 1,
-    #                             default_carbon_size_height = 1, default_carbon_weight = 200, price_carbon = 50.0)
-    #     db.session.add(insert_data)
-    #     db.session.commit()
-
     get_default_values = DefaultValues.query.first()
     if request.method == 'POST':
         get_default_values.resin_type = request.form['resin_type']

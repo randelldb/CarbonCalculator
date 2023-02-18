@@ -32,7 +32,8 @@
     </div>
     <div>
         <h2>Saved Calculations</h2>
-        <li>some entry</li>
-        <li>some entry</li>
+        {% for session in session_data %}
+            <li>{{ session.session_name }} - {{ session.area }} - {{ session.layers }} - {{ session.amount_resin }} - {{ session.amount_hardner }}</li>
+        {% endfor %}
     </div>
 {% endblock %}
